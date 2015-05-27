@@ -37,6 +37,7 @@
 		9610FE2C1B136A7700D6CA61 /* TinderMechanicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinderMechanicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9610FE311B136A7700D6CA61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9610FE321B136A7700D6CA61 /* TinderMechanicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderMechanicTests.swift; sourceTree = "<group>"; };
+		96EE4E951B16197A0085084F /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		B2766B51D3D7CAC755BC8888 /* libPods-TinderMechanic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TinderMechanic.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBC49F8561A052CB8C8B00EA /* Pods-TinderMechanic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderMechanic.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinderMechanic/Pods-TinderMechanic.release.xcconfig"; sourceTree = "<group>"; };
 		EAB6DFDDB990F56167C09D7A /* Pods-TinderMechanic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderMechanic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TinderMechanic/Pods-TinderMechanic.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 			children = (
 				9610FE1C1B136A7700D6CA61 /* AppDelegate.swift */,
 				9610FE1E1B136A7700D6CA61 /* ViewController.swift */,
+				96EE4E951B16197A0085084F /* Bridging-Header.h */,
 				9610FE201B136A7700D6CA61 /* Main.storyboard */,
 				9610FE231B136A7700D6CA61 /* Images.xcassets */,
 				9610FE251B136A7700D6CA61 /* LaunchScreen.xib */,
@@ -403,6 +405,7 @@
 				INFOPLIST_FILE = TinderMechanic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TinderMechanic/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -414,6 +417,7 @@
 				INFOPLIST_FILE = TinderMechanic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TinderMechanic/Bridging-Header.h";
 			};
 			name = Release;
 		};

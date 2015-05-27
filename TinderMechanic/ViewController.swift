@@ -9,7 +9,7 @@
 
 import UIKit
 
-class ViewController : UIViewController {
+class ViewController : UIViewController, FBSDKLoginButtonDelegate {
     
     var xFromCenter:CGFloat = 0
 //    var label:UILabel!
@@ -18,20 +18,7 @@ class ViewController : UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        // Do any additional setup after loading the view, typically from a nib.
-//        var label:UILabel = UILabel(frame:
-//            CGRectMake(self.view.bounds.width / 2 - 100, self.view.bounds.height / 2 - 50, 200, 100))
-//        label.text = "Drag Me"
-//        
-//        label.textAlignment = NSTextAlignment.Center
-//        self.view.addSubview(label)
-//        
-////        gesture recognizer
-//        var gesture = UIPanGestureRecognizer(target: self, action: Selector("wasDragged:"))
-//        label.addGestureRecognizer(gesture)
-//        label.userInteractionEnabled = true
 
-// with image instead
         imageView = UIImageView(frame: CGRectMake(self.view.bounds.width / 2 - 100, self.view.bounds.height / 2 - 100, 200, 200))
 //        default image for our user
         imageView.image = UIImage(named:"mario_360")
@@ -85,12 +72,72 @@ class ViewController : UIViewController {
             stretch = CGAffineTransformScale(rotation, scale, scale)
 //            set image/label to original size after scaling
             imageView.frame = CGRectMake(self.view.bounds.width / 2 - 100, self.view.bounds.height / 2 - 100, 200, 200)
-            
-            
+            }
+        
+//        facebook login
+        
+        
+        if (FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            // User is already logged in, do work such as go to next view controller.
         }
-}
+        else
+        {
+            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+            self.view.addSubview(loginView)
+            loginView.center = self.view.center
+            loginView.readPermissions = ["public_profile", "email", "user_friends"]
+            loginView.delegate = self
+        }
+        
+    }
     
 
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        println("User Logged In")
+        
+        if ((error) != nil)
+        {
+            // Process error
+        }
+        else if result.isCancelled {
+            // Handle cancellations
+        }
+        else {
+            // If you ask for multiple permissions at once, you
+            // should check if specific permissions missing
+            if result.grantedPermissions.contains("email")
+            {
+                // Do work
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        println("User Logged Out")
+    }
+    
+    func returnUserData()
+    {
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            
+            if ((error) != nil)
+            {
+                // Process error
+                println("Error: \(error)")
+            }
+            else
+            {
+                println("fetched user: \(result)")
+                let userName : NSString = result.valueForKey("name") as! NSString
+                println("User Name is: \(userName)")
+                let userEmail : NSString = result.valueForKey("email") as! NSString
+                println("User Email is: \(userEmail)")
+            }
+        })
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
