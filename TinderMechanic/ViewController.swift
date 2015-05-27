@@ -18,6 +18,21 @@ class ViewController : UIViewController, FBSDKLoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            // User is already logged in, do work such as go to next view controller.
+        }
+        else
+        {
+            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+            self.view.addSubview(loginView)
+            loginView.center = self.view.center
+            loginView.readPermissions = ["public_profile", "email", "user_friends"]
+            loginView.delegate = self
+      
+        }
+
 
         imageView = UIImageView(frame: CGRectMake(self.view.bounds.width / 2 - 100, self.view.bounds.height / 2 - 100, 200, 200))
 //        default image for our user
@@ -25,7 +40,7 @@ class ViewController : UIViewController, FBSDKLoginButtonDelegate {
 //        add a corner radius to our image
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true
-        self.view.addSubview(imageView)
+     //   self.view.addSubview(imageView)
         var gesture = UIPanGestureRecognizer(target: self, action: Selector("wasDragged:"))
         imageView.addGestureRecognizer(gesture)
         imageView.userInteractionEnabled = true
@@ -77,25 +92,13 @@ class ViewController : UIViewController, FBSDKLoginButtonDelegate {
 //        facebook login
         
         
-        if (FBSDKAccessToken.currentAccessToken() != nil)
-        {
-            // User is already logged in, do work such as go to next view controller.
-        }
-        else
-        {
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-            loginView.delegate = self
-        }
         
     }
     
-
+   
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         println("User Logged In")
-        
+        print(error)
         if ((error) != nil)
         {
             // Process error
